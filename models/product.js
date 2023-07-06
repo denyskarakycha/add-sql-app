@@ -57,7 +57,7 @@ const Product = sequelize.define("product", {
   },
 
   description: {
-    type: Sequelize.DOUBLE,
+    type: Sequelize.STRING,
     allowNull: false,
   },
 });
