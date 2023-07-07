@@ -27,8 +27,17 @@ app.use(errorController.get404);
 Product.belongsTo(User, {constrains: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
 
-sequelize.sync({force: true})
+sequelize.sync() // {force: true} parametr for DROP TABLE IF EXISTS
     .then(result => {
+        return User.findByPk();
+    })
+    .then(user => {
+        if (!user) {
+          return User.create({name: 'Max', email: 'test@test.com'});
+        }
+        return user;         //return Promise.resolve(user); - under the hood
+    })
+    .then(user => {
         app.listen(3000);
     })
     .catch(err => {
