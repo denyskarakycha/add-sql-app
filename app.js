@@ -45,7 +45,7 @@ sequelize.sync() // {force: true} parametr for DROP TABLE IF EXISTS
         if (!user) {
           return User.create({name: 'Max', email: 'test@test.com'});
         }
-        return user;         //return Promise.resolve(user); - under the hood
+        return user;   //return Promise.resolve(user); - under the hood
     })
     .then(user => {
         app.listen(3000);
