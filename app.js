@@ -44,7 +44,7 @@ Cart.belongsTo(User);
 Cart.belongsToMany(Product, {through: CartItem});
 Product.belongsToMany(Cart, {through: CartItem});
 
-sequelize.sync() // {force: true} parametr for DROP TABLE IF EXISTS
+sequelize.sync({force: true}) // {force: true} parametr for DROP TABLE IF EXISTS
     .then(result => {
         return User.findByPk();
     })
