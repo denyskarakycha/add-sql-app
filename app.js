@@ -26,7 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
     User.findByPk(1)
         .then(user => {
-            console.log(user);
             req.user = user;
             next();
         })
@@ -45,7 +44,7 @@ Cart.belongsTo(User);
 Cart.belongsToMany(Product, {through: CartItem});
 Product.belongsToMany(Cart, {through: CartItem});
 
-sequelize.sync({force: true}) // {force: true} parametr for DROP TABLE IF EXISTS
+sequelize.sync() // {force: true} parametr for DROP TABLE IF EXISTS
     .then(result => {
         return User.findByPk();
     })
@@ -56,6 +55,9 @@ sequelize.sync({force: true}) // {force: true} parametr for DROP TABLE IF EXISTS
         return user;   //return Promise.resolve(user); - under the hood
     })
     .then(user => {
+        return user.createCart(); 
+    })
+    .then(cart => {
         app.listen(3000);
     })
     .catch(err => {
