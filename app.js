@@ -49,7 +49,7 @@ Order.belongsTo(User);
 User.hasMany(Order);
 Order.belongsToMany(Product, {through: OrderItem});
 
-sequelize.sync() // {force: true} parametr for DROP TABLE IF EXISTS
+sequelize.sync({force: true}) // {force: true} parametr for DROP TABLE IF EXISTS
     .then(result => {
         return User.findByPk();
     })
